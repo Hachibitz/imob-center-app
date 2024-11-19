@@ -1,0 +1,7 @@
+{
+  "name": "imob-center-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
