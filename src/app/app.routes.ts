@@ -12,6 +12,6 @@ export const routes: Routes = [
   },
   {
     path: 'adm-property-register',
-    loadComponent: () => import('./pages/home/adm-property-register/adm-property-register.page').then( m => m.AdmPropertyRegisterPage)
+    loadComponent: () => import('./pages/adm-property-register/adm-property-register.page').then( m => m.AdmPropertyRegisterPage)
   },
 ];
