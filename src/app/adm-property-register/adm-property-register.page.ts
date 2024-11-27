@@ -1,13 +1,13 @@
 import { Component, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, 
   IonToolbar, IonInput, IonList,
   IonItem, IonSelectOption, IonSelect,
-  IonButton, IonIcon, IonCardContent,
+  IonButton, IonCardContent, IonLabel, 
   IonCardTitle, IonCardHeader, IonCard,
-  IonCheckbox, IonLabel
+  IonCheckbox, 
 } from '@ionic/angular/standalone';
 
 
@@ -21,20 +21,20 @@ import {
     IonToolbar, CommonModule, FormsModule,
     IonInput, IonList, IonItem,
     IonSelectOption, IonSelect, IonButton,
-    IonIcon, IonCardContent, IonCardTitle,
+    IonCardContent, IonCardTitle, IonLabel, 
     IonCardHeader, IonCard, IonCheckbox,
-    IonLabel,
+    ReactiveFormsModule
   ]
 })
 export class AdmPropertyRegisterPage implements OnInit {
-  quartos: number = 0;
-  banheiros: number = 0;
+  bedroomNumber: number = 0;
+  restroomNumber: number = 0;
   area: number = 0;
-  garagem: number = 0;
-  condominio: number = 0;
+  garage: number = 0;
+  condominiumFee: number = 0;
   iptu: number = 0;
-  preco: number = 0;
-  imagemSelecionada: string | null = null;
+  price: number = 0;
+  selectedImage: string | null = null;
   cep: number = 0;
 
   constructor() { }
@@ -42,7 +42,7 @@ export class AdmPropertyRegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  validaSomenteNumero(event: any){
+  numberOnlyValidation(event: any){
     const pattern = /[0-9.,]/;
     let inputChar = String.fromCharCode(event.charCode);
 
@@ -56,7 +56,7 @@ export class AdmPropertyRegisterPage implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imagemSelecionada = e.target.result; // Carrega a imagem como base64
+        this.selectedImage = e.target.result;
       };
       reader.readAsDataURL(file);
     }

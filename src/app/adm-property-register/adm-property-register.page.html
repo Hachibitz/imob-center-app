@@ -5,18 +5,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!--<ion-list>
-    <ion-item>
-      <ion-input labelPlacement="stacked" label="Email" placeholder="email@domain.com">
-        <ion-icon slot="start" name="lock-closed" aria-hidden="true"></ion-icon>
-        <ion-button fill="clear" slot="end" aria-label="Show/hide">
-          <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
-        </ion-button>
-      </ion-input>
-    </ion-item>
-  </ion-list>
-    <ion-title>Título</ion-title>
-  <ion-input label="Enter text" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>-->
   <ion-card>
    <ion-card-header>
       <ion-card-title>Título</ion-card-title>
@@ -71,7 +59,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="quartos" label="Número de quartos" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="bedroomNumber" label="Número de quartos" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -81,7 +69,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="banheiros" label="Número de banheiros" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="restroomNumber" label="Número de banheiros" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -91,7 +79,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="area" label="Tamanho" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="area" label="Tamanho" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -101,7 +89,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="garagem" label="Número de vagas na garagem" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="garage" label="Número de vagas na garagem" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -111,7 +99,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="condominio" label="Valor do condomínio" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="condominiumFee" label="Valor do condomínio" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -121,7 +109,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="iptu" label="Valor do IPTU" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="iptu" label="Valor do IPTU" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -131,13 +119,13 @@
      </ion-card-header>
    
      <ion-card-content class="card-content-custom">
-      <div>
+      <div class="checkbox-div">
        <ion-checkbox labelPlacement="end">Área de serviço</ion-checkbox>
        <ion-checkbox labelPlacement="end">Armários no quarto</ion-checkbox>
        <ion-checkbox labelPlacement="end">Ar condicionado</ion-checkbox>
        <ion-checkbox labelPlacement="end">Varanda</ion-checkbox>
       </div>
-      <div>
+      <div class="checkbox-div">
        <ion-checkbox labelPlacement="end">Armários na cozinha</ion-checkbox>
        <ion-checkbox labelPlacement="end">Mobiliado</ion-checkbox>
        <ion-checkbox labelPlacement="end">Churrasqueira</ion-checkbox>
@@ -152,13 +140,13 @@
      </ion-card-header>
    
      <ion-card-content class="card-content-custom">
-      <div>
+      <div class="checkbox-div">
        <ion-checkbox labelPlacement="end">Condomínio fechado</ion-checkbox>
        <ion-checkbox labelPlacement="end">Área murada</ion-checkbox>
        <ion-checkbox labelPlacement="end">Portão eletrônico</ion-checkbox>
        <ion-checkbox labelPlacement="end">Piscina</ion-checkbox>
       </div>
-      <div>
+      <div class="checkbox-div">
        <ion-checkbox labelPlacement="end">Segurança 24h</ion-checkbox>
        <ion-checkbox labelPlacement="end">Permitido animais</ion-checkbox>
        <ion-checkbox labelPlacement="end">Academia</ion-checkbox>
@@ -172,7 +160,7 @@
      </ion-card-header>
    
      <ion-card-content>
-       <ion-input (keypress)="validaSomenteNumero($event)" [(ngModel)]="preco" label="Preço do imóvel" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       <ion-input (keypress)="numberOnlyValidation($event)" [(ngModel)]="price" label="Preço do imóvel" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
      </ion-card-content>
    </ion-card>
 
@@ -186,8 +174,8 @@
         <ion-label position="stacked">Selecione uma imagem</ion-label>
         <input type="file" accept="image/*" (change)="onImageSelected($event)" />
       </ion-item>
-      <div *ngIf="imagemSelecionada" class="image-preview">
-        <img [src]="imagemSelecionada" alt="Pré-visualização da imagem" />
+      <div *ngIf="selectedImage" class="image-preview">
+        <img [src]="selectedImage" alt="Pré-visualização da imagem" />
       </div>
     </ion-card-content>
   </ion-card>
