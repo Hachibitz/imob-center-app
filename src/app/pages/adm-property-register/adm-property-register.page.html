@@ -197,8 +197,17 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-input  formControlName="cep" label="cep" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+          <ion-input (keypress)="showPropertyAddressDetailsByCep($event)" formControlName="cep" label="cep" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
         </ion-card-content>
+        <ion-text color="danger" *ngIf="propertyRegisterForm.get('cep')?.hasError('required') && propertyRegisterForm.get('cep')?.touched">
+          Cep inválido
+        </ion-text>
+        <ion-text color="danger" *ngIf="showCepErrorMsg">
+          Erro na busca do cep ou cep inválido
+        </ion-text>
+        <ion-text *ngIf="!showCepErrorMsg && ((!propertyRegisterForm.get('cep')?.hasError('required')) && propertyRegisterForm.get('cep')?.value >= 7)">
+          {{ addressDetails.estado }}, {{ addressDetails.localidade }}, {{ addressDetails.logradouro }}
+        </ion-text>
       </ion-card>
       <ion-button expand="block" type="submit" [disabled]="propertyRegisterForm.invalid">Cadastrar</ion-button>
   </form>

@@ -7,8 +7,10 @@ import {
   IonItem, IonSelectOption, IonSelect,
   IonButton, IonCardContent, IonLabel, 
   IonCardTitle, IonCardHeader, IonCard,
-  IonCheckbox, 
+  IonCheckbox, IonText
 } from '@ionic/angular/standalone';
+import { ViaCepService } from 'src/app/service/via-cep.service';
+import { ViaCepFindByCepResponse } from 'src/app/model/property-adm/via-cep.model';
 
 
 @Component({
@@ -16,6 +18,9 @@ import {
   templateUrl: './adm-property-register.page.html',
   styleUrls: ['./adm-property-register.page.scss'],
   standalone: true,
+  providers: [
+    ViaCepService
+  ],
   imports: [
     IonContent, IonHeader, IonTitle, 
     IonToolbar, CommonModule, FormsModule,
@@ -23,7 +28,7 @@ import {
     IonSelectOption, IonSelect, IonButton,
     IonCardContent, IonCardTitle, IonLabel, 
     IonCardHeader, IonCard, IonCheckbox,
-    ReactiveFormsModule
+    ReactiveFormsModule, IonText
   ]
 })
 export class AdmPropertyRegisterPage implements OnInit {
@@ -31,8 +36,12 @@ export class AdmPropertyRegisterPage implements OnInit {
 
   propertyRegisterForm: FormGroup;
 
+  showCepErrorMsg: Boolean = false;
+  addressDetails!: ViaCepFindByCepResponse;
+
   constructor(
     private fb: FormBuilder,
+    private viaCepService: ViaCepService
   ) {
     this.propertyRegisterForm = this.fb.group({
       bedroomNumber: ['', Validators.required],
@@ -76,6 +85,21 @@ export class AdmPropertyRegisterPage implements OnInit {
       });
 
       this.propertyRegisterForm.get('selectedImages')?.setValue(this.selectedImagesPreview);
+    }
+  }
+
+  async showPropertyAddressDetailsByCep(event: any) {
+    let inputChar = String.fromCharCode(event.charCode);
+    const cep = this.propertyRegisterForm.get('cep')?.value+inputChar
+    this.numberOnlyValidation(event);
+    if(cep.length == 8) {
+      const addressDetails = await this.viaCepService.findAddressInfoByCep(cep);
+      if(addressDetails.erro) {
+        this.showCepErrorMsg = true;
+      } else {
+        this.showCepErrorMsg = false;
+        this.addressDetails = addressDetails;
+      }
     }
   }
 
