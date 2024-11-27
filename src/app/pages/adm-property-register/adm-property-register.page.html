@@ -205,7 +205,7 @@
         <ion-text color="danger" *ngIf="showCepErrorMsg">
           Erro na busca do cep ou cep inválido
         </ion-text>
-        <ion-text *ngIf="!showCepErrorMsg && ((!propertyRegisterForm.get('cep')?.hasError('required')) && propertyRegisterForm.get('cep')?.value >= 7)">
+        <ion-text *ngIf="!showCepErrorMsg && ((!propertyRegisterForm.get('cep')?.hasError('required')) && propertyRegisterForm.get('cep')?.value.length >= 7) && addressDetails">
           {{ addressDetails.estado }}, {{ addressDetails.localidade }}, {{ addressDetails.logradouro }}
         </ion-text>
       </ion-card>
