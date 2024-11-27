@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, 
   IonToolbar, IonInput, IonList,
@@ -27,17 +27,25 @@ import {
   ]
 })
 export class AdmPropertyRegisterPage implements OnInit {
-  bedroomNumber: number = 0;
-  restroomNumber: number = 0;
-  area: number = 0;
-  garage: number = 0;
-  condominiumFee: number = 0;
-  iptu: number = 0;
-  price: number = 0;
-  selectedImage: string | null = null;
-  cep: number = 0;
+  selectedImagesPreview: string[] = [];
 
-  constructor() { }
+  propertyRegisterForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+  ) {
+    this.propertyRegisterForm = this.fb.group({
+      bedroomNumber: ['', Validators.required],
+      restroomNumber: ['', Validators.required],
+      area: ['', Validators.required],
+      garage: ['', Validators.required],
+      condominiumFee: ['', Validators.required],
+      iptu: ['', Validators.required],
+      price: ['', Validators.required],
+      selectedImages: [null],
+      cep: ['', Validators.required],
+    })
+  }
 
   ngOnInit() {
   }
@@ -51,14 +59,27 @@ export class AdmPropertyRegisterPage implements OnInit {
     }
   }
 
-  onImageSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
+  onImagesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const files = Array.from(input.files).slice(0, 20);
+      this.selectedImagesPreview = [];
+  
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (reader.result) {
+            this.selectedImagesPreview.push(reader.result.toString());
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      this.propertyRegisterForm.get('selectedImages')?.setValue(this.selectedImagesPreview);
     }
+  }
+
+  onSubmit(): void {
+    console.log(this.propertyRegisterForm.value);
   }
 }
