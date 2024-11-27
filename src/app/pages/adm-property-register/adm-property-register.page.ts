@@ -53,6 +53,21 @@ export class AdmPropertyRegisterPage implements OnInit {
       price: ['', Validators.required],
       selectedImages: [null],
       cep: ['', Validators.required],
+      serviceArea: [false],
+      bedroomCabinets: [false],
+      airConditioner: [false],
+      balcony: [false],
+      kitchenCabinets: [false],
+      furnished: [false],
+      barbecue: [false],
+      serviceRoom: [false],
+      gatedCommunity: [false],
+      walledArea: [false],
+      electricGate: [false],
+      swimmingPool: [false],
+      security24h: [false],
+      petsAllowed: [false],
+      gym: [false],
     })
   }
 

@@ -115,43 +115,43 @@
       </ion-card>
    
       <ion-card>
-       <ion-card-header>
+        <ion-card-header>
           <ion-card-title>Detalhes do imóvel</ion-card-title>
         </ion-card-header>
       
         <ion-card-content class="card-content-custom">
-         <div class="checkbox-div">
-          <ion-checkbox labelPlacement="end">Área de serviço</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Armários no quarto</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Ar condicionado</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Varanda</ion-checkbox>
-         </div>
-         <div class="checkbox-div">
-          <ion-checkbox labelPlacement="end">Armários na cozinha</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Mobiliado</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Churrasqueira</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Quarto de serviço</ion-checkbox>
-         </div>
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="serviceArea" labelPlacement="end">Área de serviço</ion-checkbox>
+            <ion-checkbox formControlName="bedroomCabinets" labelPlacement="end">Armários no quarto</ion-checkbox>
+            <ion-checkbox formControlName="airConditioner" labelPlacement="end">Ar condicionado</ion-checkbox>
+            <ion-checkbox formControlName="balcony" labelPlacement="end">Varanda</ion-checkbox>
+          </div>
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="kitchenCabinets" labelPlacement="end">Armários na cozinha</ion-checkbox>
+            <ion-checkbox formControlName="furnished" labelPlacement="end">Mobiliado</ion-checkbox>
+            <ion-checkbox formControlName="barbecue" labelPlacement="end">Churrasqueira</ion-checkbox>
+            <ion-checkbox formControlName="serviceRoom" labelPlacement="end">Quarto de serviço</ion-checkbox>
+          </div>
         </ion-card-content>
-      </ion-card>
+      </ion-card>      
    
       <ion-card>
-       <ion-card-header>
+        <ion-card-header>
           <ion-card-title>Detalhes do condomínio</ion-card-title>
         </ion-card-header>
       
         <ion-card-content class="card-content-custom">
-         <div class="checkbox-div">
-          <ion-checkbox labelPlacement="end">Condomínio fechado</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Área murada</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Portão eletrônico</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Piscina</ion-checkbox>
-         </div>
-         <div class="checkbox-div">
-          <ion-checkbox labelPlacement="end">Segurança 24h</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Permitido animais</ion-checkbox>
-          <ion-checkbox labelPlacement="end">Academia</ion-checkbox>
-         </div>
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="gatedCommunity" labelPlacement="end">Condomínio fechado</ion-checkbox>
+            <ion-checkbox formControlName="walledArea" labelPlacement="end">Área murada</ion-checkbox>
+            <ion-checkbox formControlName="electricGate" labelPlacement="end">Portão eletrônico</ion-checkbox>
+            <ion-checkbox formControlName="swimmingPool" labelPlacement="end">Piscina</ion-checkbox>
+          </div>
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="security24h" labelPlacement="end">Segurança 24h</ion-checkbox>
+            <ion-checkbox formControlName="petsAllowed" labelPlacement="end">Permitido animais</ion-checkbox>
+            <ion-checkbox formControlName="gym" labelPlacement="end">Academia</ion-checkbox>
+          </div>
         </ion-card-content>
       </ion-card>
    
