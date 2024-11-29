@@ -5,14 +5,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <form [formGroup]="propertyRegisterForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="propertyRegisterForm" (ngSubmit)="onSubmit(propertyRegisterForm.value)">
     <ion-card>
       <ion-card-header>
          <ion-card-title>Título</ion-card-title>
        </ion-card-header>
      
        <ion-card-content>
-         <ion-input label="Escreva o título" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+         <ion-input label="Escreva o título" label-placement="floating" fill="outline" formControlName="title" placeholder="Enter text"></ion-input>
        </ion-card-content>
      </ion-card>
    
@@ -22,7 +22,7 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-input class="input-custom" label="Escreva a descrição" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+          <ion-input class="input-custom" label="Escreva a descrição" label-placement="floating" fill="outline" formControlName="description" placeholder="Enter text"></ion-input>
         </ion-card-content>
       </ion-card>
       <ion-card>
@@ -33,7 +33,7 @@
         <ion-card-content>
          <ion-list>
            <ion-item>
-             <ion-select aria-label="Fruit" interface="popover" placeholder="Selecione o imóvel">
+             <ion-select aria-label="Fruit" interface="popover" placeholder="Selecione o imóvel" formControlName="type">
                <ion-select-option value="casa">Casa</ion-select-option>
                <ion-select-option value="apartamento">Apartamento</ion-select-option>
                <ion-select-option value="fazenda">Fazenda</ion-select-option>
@@ -49,8 +49,8 @@
        </ion-card-header>
      
        <ion-card-content class="card-content-custom">
-         <ion-checkbox>Venda</ion-checkbox>
-         <ion-checkbox>Aluguel</ion-checkbox>
+         <ion-checkbox formControlName="isForSale">Venda</ion-checkbox>
+         <ion-checkbox formControlName="isForRent">Aluguel</ion-checkbox>
        </ion-card-content>
      </ion-card>
    
@@ -118,40 +118,33 @@
         <ion-card-header>
           <ion-card-title>Detalhes do imóvel</ion-card-title>
         </ion-card-header>
-      
-        <ion-card-content class="card-content-custom">
-          <div class="checkbox-div">
-            <ion-checkbox formControlName="serviceArea" labelPlacement="end">Área de serviço</ion-checkbox>
-            <ion-checkbox formControlName="bedroomCabinets" labelPlacement="end">Armários no quarto</ion-checkbox>
-            <ion-checkbox formControlName="airConditioner" labelPlacement="end">Ar condicionado</ion-checkbox>
-            <ion-checkbox formControlName="balcony" labelPlacement="end">Varanda</ion-checkbox>
-          </div>
-          <div class="checkbox-div">
-            <ion-checkbox formControlName="kitchenCabinets" labelPlacement="end">Armários na cozinha</ion-checkbox>
-            <ion-checkbox formControlName="furnished" labelPlacement="end">Mobiliado</ion-checkbox>
-            <ion-checkbox formControlName="barbecue" labelPlacement="end">Churrasqueira</ion-checkbox>
-            <ion-checkbox formControlName="serviceRoom" labelPlacement="end">Quarto de serviço</ion-checkbox>
-          </div>
+        <ion-card-content>
+          <ion-list formArrayName="propertyAttributes">
+            <ion-item *ngFor="let propertyDetail of propertyDetails; let i = index">
+              <ion-checkbox
+                [formControlName]="i"
+                slot="start"
+              ></ion-checkbox>
+              <ion-label>{{ propertyDetail.label }}</ion-label>
+            </ion-item>
+          </ion-list>
         </ion-card-content>
-      </ion-card>      
-   
+      </ion-card>
+    
       <ion-card>
         <ion-card-header>
           <ion-card-title>Detalhes do condomínio</ion-card-title>
         </ion-card-header>
-      
-        <ion-card-content class="card-content-custom">
-          <div class="checkbox-div">
-            <ion-checkbox formControlName="gatedCommunity" labelPlacement="end">Condomínio fechado</ion-checkbox>
-            <ion-checkbox formControlName="walledArea" labelPlacement="end">Área murada</ion-checkbox>
-            <ion-checkbox formControlName="electricGate" labelPlacement="end">Portão eletrônico</ion-checkbox>
-            <ion-checkbox formControlName="swimmingPool" labelPlacement="end">Piscina</ion-checkbox>
-          </div>
-          <div class="checkbox-div">
-            <ion-checkbox formControlName="security24h" labelPlacement="end">Segurança 24h</ion-checkbox>
-            <ion-checkbox formControlName="petsAllowed" labelPlacement="end">Permitido animais</ion-checkbox>
-            <ion-checkbox formControlName="gym" labelPlacement="end">Academia</ion-checkbox>
-          </div>
+        <ion-card-content>
+          <ion-list formArrayName="condominiumAttributes">
+            <ion-item *ngFor="let condominiumDetail of condominiumDetails; let i = index">
+              <ion-checkbox
+                [formControlName]="i"
+                slot="start"
+              ></ion-checkbox>
+              <ion-label>{{ condominiumDetail.label }}</ion-label>
+            </ion-item>
+          </ion-list>
         </ion-card-content>
       </ion-card>
    
