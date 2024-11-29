@@ -1,0 +1,214 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cadastro de imóveis</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="propertyRegisterForm" (ngSubmit)="onSubmit()">
+    <ion-card>
+      <ion-card-header>
+         <ion-card-title>Título</ion-card-title>
+       </ion-card-header>
+     
+       <ion-card-content>
+         <ion-input label="Escreva o título" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+       </ion-card-content>
+     </ion-card>
+   
+     <ion-card>
+       <ion-card-header>
+          <ion-card-title>Descrição</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input class="input-custom" label="Escreva a descrição" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>Tipo</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+         <ion-list>
+           <ion-item>
+             <ion-select aria-label="Fruit" interface="popover" placeholder="Selecione o imóvel">
+               <ion-select-option value="casa">Casa</ion-select-option>
+               <ion-select-option value="apartamento">Apartamento</ion-select-option>
+               <ion-select-option value="fazenda">Fazenda</ion-select-option>
+             </ion-select>
+           </ion-item>
+         </ion-list>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+      <ion-card-header>
+         <ion-card-title>Venda ou aluguel?</ion-card-title>
+       </ion-card-header>
+     
+       <ion-card-content class="card-content-custom">
+         <ion-checkbox>Venda</ion-checkbox>
+         <ion-checkbox>Aluguel</ion-checkbox>
+       </ion-card-content>
+     </ion-card>
+   
+     <ion-card>
+       <ion-card-header>
+          <ion-card-title>Número de quartos</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="bedroomNumber" label="Número de quartos" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>Número de Banheiros</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="restroomNumber" label="Número de banheiros" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>Área (m²)</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="area" label="Tamanho" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>Vagas na garagem</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="garage" label="Número de vagas na garagem" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>Condomínio</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="condominiumFee" label="Valor do condomínio" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>IPTU</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="iptu" label="Valor do IPTU" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Detalhes do imóvel</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content class="card-content-custom">
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="serviceArea" labelPlacement="end">Área de serviço</ion-checkbox>
+            <ion-checkbox formControlName="bedroomCabinets" labelPlacement="end">Armários no quarto</ion-checkbox>
+            <ion-checkbox formControlName="airConditioner" labelPlacement="end">Ar condicionado</ion-checkbox>
+            <ion-checkbox formControlName="balcony" labelPlacement="end">Varanda</ion-checkbox>
+          </div>
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="kitchenCabinets" labelPlacement="end">Armários na cozinha</ion-checkbox>
+            <ion-checkbox formControlName="furnished" labelPlacement="end">Mobiliado</ion-checkbox>
+            <ion-checkbox formControlName="barbecue" labelPlacement="end">Churrasqueira</ion-checkbox>
+            <ion-checkbox formControlName="serviceRoom" labelPlacement="end">Quarto de serviço</ion-checkbox>
+          </div>
+        </ion-card-content>
+      </ion-card>      
+   
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Detalhes do condomínio</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content class="card-content-custom">
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="gatedCommunity" labelPlacement="end">Condomínio fechado</ion-checkbox>
+            <ion-checkbox formControlName="walledArea" labelPlacement="end">Área murada</ion-checkbox>
+            <ion-checkbox formControlName="electricGate" labelPlacement="end">Portão eletrônico</ion-checkbox>
+            <ion-checkbox formControlName="swimmingPool" labelPlacement="end">Piscina</ion-checkbox>
+          </div>
+          <div class="checkbox-div">
+            <ion-checkbox formControlName="security24h" labelPlacement="end">Segurança 24h</ion-checkbox>
+            <ion-checkbox formControlName="petsAllowed" labelPlacement="end">Permitido animais</ion-checkbox>
+            <ion-checkbox formControlName="gym" labelPlacement="end">Academia</ion-checkbox>
+          </div>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+       <ion-card-header>
+          <ion-card-title>Preço</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="price" label="Preço do imóvel" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+      </ion-card>
+   
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Imagens do imóvel</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="stacked" style="margin-bottom: 20px;">Selecione até 20 imagens</ion-label>
+            <input 
+              type="file" 
+              accept="image/*" 
+              multiple 
+              (change)="onImagesSelected($event)" 
+            />
+          </ion-item>
+          <div *ngIf="selectedImagesPreview?.length" class="images-preview">
+            <div 
+              *ngFor="let image of selectedImagesPreview" 
+              class="image-preview-item"
+            >
+              <img [src]="image" alt="Pré-visualização da imagem" />
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+   
+     <ion-card>
+       <ion-card-header>
+          <ion-card-title>Localização</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <ion-input (keypress)="showPropertyAddressDetailsByCep($event)" formControlName="cep" label="cep" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+        </ion-card-content>
+        <ion-text color="danger" *ngIf="propertyRegisterForm.get('cep')?.hasError('required') && propertyRegisterForm.get('cep')?.touched">
+          Cep inválido
+        </ion-text>
+        <ion-text color="danger" *ngIf="showCepErrorMsg">
+          Erro na busca do cep ou cep inválido
+        </ion-text>
+        <ion-text *ngIf="!showCepErrorMsg && ((!propertyRegisterForm.get('cep')?.hasError('required')) && propertyRegisterForm.get('cep')?.value.length >= 7) && addressDetails">
+          {{ addressDetails.estado }}, {{ addressDetails.localidade }}, {{ addressDetails.logradouro }}
+        </ion-text>
+      </ion-card>
+      <ion-button expand="block" type="submit" [disabled]="propertyRegisterForm.invalid">Cadastrar</ion-button>
+  </form>
+</ion-content>
