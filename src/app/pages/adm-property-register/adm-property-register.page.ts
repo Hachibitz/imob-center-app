@@ -119,6 +119,40 @@ export class AdmPropertyRegisterPage implements OnInit {
     }
   }
 
+  noSpecialCharValidation(event: any){
+    const pattern = /^[a-zA-Z0-9 ]*$/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  
+  formatPrice(event: any): void {
+    let price = this.propertyRegisterForm.get('price')?.value;
+
+    if (price) {
+        price = price.replace(/[^\d]/g, '');
+
+        const numericPrice = Number(price) / 100;
+
+        const formattedPrice = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+        }).format(numericPrice);
+
+        this.propertyRegisterForm.get('price')?.setValue(formattedPrice);
+    }
+}
+
+
+
+  formatMeters(event: any): void {
+    const price = this.propertyRegisterForm.get('area')?.value;
+    this.propertyRegisterForm.get('area')?.setValue(`${price.replace(/[^\d.,]/g, '')} m²`);
+  }
+  
   onImagesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
