@@ -12,7 +12,7 @@
        </ion-card-header>
      
        <ion-card-content>
-         <ion-input label="Escreva o título" label-placement="floating" fill="outline" formControlName="title" placeholder="Enter text"></ion-input>
+         <ion-input (keypress)="noSpecialCharValidation($event)" label="Escreva o título" label-placement="floating" fill="outline" formControlName="title" placeholder="Enter text"></ion-input>
        </ion-card-content>
      </ion-card>
    
@@ -80,7 +80,7 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="area" label="Tamanho" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+          <ion-input (keypress)="numberOnlyValidation($event)" (input)="formatMeters($event)" formControlName="area" label="Tamanho" label-placement="floating" fill="outline" placeholder="Tamanho"></ion-input>
         </ion-card-content>
       </ion-card>
    
@@ -154,7 +154,7 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="price" label="Preço do imóvel" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+          <ion-input (keypress)="numberOnlyValidation($event)" (input)="formatPrice($event)" formControlName="price" label="Preço do imóvel" label-placement="floating" fill="outline" placeholder="Digite o valor"></ion-input>
         </ion-card-content>
       </ion-card>
    
