@@ -209,11 +209,11 @@ export class AdmPropertyRegisterPage implements OnInit {
       isForRent: formData.isForRent,
       bedroomNumber: formData.bedroomNumber,
       restroomNumber: formData.restroomNumber,
-      area: formData.area,
+      area: formData.area.replace(" m²", ""),
       garageSpaces: formData.garageSpaces,
-      condominiumFee: formData.condominiumFee,
-      iptu: formData.iptu,
-      price: formData.price,
+      condominiumFee: this.formatCurrencyToNumber(formData.condominiumFee),
+      iptu: this.formatCurrencyToNumber(formData.iptu),
+      price: this.formatCurrencyToNumber(formData.price),
       cep: formData.cep,
       createdBy: formData.createdBy,
       propertyAttributes: propertyAttributes,
@@ -244,6 +244,17 @@ export class AdmPropertyRegisterPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  formatCurrencyToNumber(value: string): string {
+    if (!value) {
+      throw new Error("O valor fornecido está vazio.");
+    }
+  
+    const sanitizedValue = value.replace(/[^\d,.-]/g, "").replace(".", "");
+    const numericValue = sanitizedValue.replace(",", ".");
+  
+    return numericValue;
   }
 
   isLoading(): void {
