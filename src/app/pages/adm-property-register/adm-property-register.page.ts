@@ -13,6 +13,7 @@ import { ViaCepService } from 'src/app/service/via-cep.service';
 import { ViaCepFindByCepResponse } from 'src/app/model/property-adm/via-cep.model';
 import { AdmPropertyService } from 'src/app/service/adm-property.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -67,7 +68,8 @@ export class AdmPropertyRegisterPage implements OnInit {
     private fb: FormBuilder,
     private viaCepService: ViaCepService,
     private admPropertyService: AdmPropertyService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private router: Router,
   ) {
     this.propertyRegisterForm = this.fb.group({
       title: ['', Validators.required],
@@ -209,11 +211,11 @@ export class AdmPropertyRegisterPage implements OnInit {
       isForRent: formData.isForRent,
       bedroomNumber: formData.bedroomNumber,
       restroomNumber: formData.restroomNumber,
-      area: formData.area,
+      area: formData.area.replace(" m²", ""),
       garageSpaces: formData.garageSpaces,
-      condominiumFee: formData.condominiumFee,
-      iptu: formData.iptu,
-      price: formData.price,
+      condominiumFee: this.formatCurrencyToNumber(formData.condominiumFee),
+      iptu: this.formatCurrencyToNumber(formData.iptu),
+      price: this.formatCurrencyToNumber(formData.price),
       cep: formData.cep,
       createdBy: formData.createdBy,
       propertyAttributes: propertyAttributes,
@@ -231,6 +233,7 @@ export class AdmPropertyRegisterPage implements OnInit {
     }
   
     this.admPropertyService.registerProperty(formDataToSend).subscribe(response => {
+      this.router.navigate([`/property-detail/${response.propertyId}`])
       this.showAlert('Sucesso', 'Imóvel salvo com sucesso.');
     }, error => {
       this.showAlert('Erro', `Falha ao salvar o imóvel: ${error.message}.`);
@@ -244,6 +247,17 @@ export class AdmPropertyRegisterPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  formatCurrencyToNumber(value: string): string {
+    if (!value) {
+      throw new Error("O valor fornecido está vazio.");
+    }
+  
+    const sanitizedValue = value.replace(/[^\d,.-]/g, "").replace(".", "");
+    const numericValue = sanitizedValue.replace(",", ".");
+  
+    return numericValue;
   }
 
   isLoading(): void {

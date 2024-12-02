@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Imagens do Imóvel</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="close()">Fechar</ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <swiper-container *ngIf="property?.images?.length" [slidesPerView]="1" [pagination]="true"
+      [initialSlide]="currentIndex">
+      <swiper-slide *ngFor="let image of property.images">
+          <img [src]="getImageBase64(image)" alt="Imagem do imóvel em tela cheia" class="fullscreen-image" />
+      </swiper-slide>
+  </swiper-container>
+</ion-content>

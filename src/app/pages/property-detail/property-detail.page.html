@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/properties"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ property?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="property" class="ion-padding">
+  <swiper-container [slidesPerView]="1" [pagination]="true" [modules]="swiperModules">
+    <swiper-slide *ngFor="let image of property.images; let i = index">
+      <img [src]="getImageBase64(image)" alt="Imagem do imóvel" class="property-image" (click)="openImageModal()" />
+    </swiper-slide>
+  </swiper-container>
+
+  <div class="property-header">
+    <h2>{{ property.price | currency:'BRL' }}</h2>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Descrição</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ property.description || 'Sem descrição disponível.' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content style="display: flex; justify-content: space-evenly;">
+      <div>
+        <p><strong>Tipo:</strong> {{ property.type }}</p>
+        <p><strong>Área:</strong> {{ property.area }} m²</p>
+        <p><strong>Quartos:</strong> {{ property.bedroomNumber }}</p>
+        <p><strong>Banheiros:</strong> {{ property.restroomNumber }}</p>
+      </div>
+      <div>
+        <p><strong>Vagas de garagem:</strong> {{ property.garageSpaces }}</p>
+        <p *ngIf="property.condominiumFee"><strong>Condomínio:</strong> {{ property.condominiumFee | currency:'BRL' }}</p>
+        <p *ngIf="property.iptu"><strong>IPTU:</strong> {{ property.iptu | currency:'BRL' }}</p>
+        <p><strong>Venda:</strong> {{ property.isForSale ? 'Sim' : 'Não' }}</p>
+        <p><strong>Aluguel:</strong> {{ property.isForRent ? 'Sim' : 'Não' }}</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="property.propertyAttributes.length > 0">
+    <ion-card-header>
+      <ion-card-title>Atributos do Imóvel</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let attr of property.propertyAttributes">
+          <ion-label>{{ attr.attributeName }}</ion-label>
+          <ion-icon [name]="attr.attributeValue ? 'checkmark-circle' : 'close-circle'" slot="end" 
+            [color]="attr.attributeValue ? 'success' : 'danger'"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="property.condominiumAttributes.length > 0">
+    <ion-card-header>
+      <ion-card-title>Atributos do Condomínio</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let attr of property.condominiumAttributes">
+          <ion-label>{{ attr.attributeName }}</ion-label>
+          <ion-icon [name]="attr.attributeValue ? 'checkmark-circle' : 'close-circle'" slot="end" 
+            [color]="attr.attributeValue ? 'success' : 'danger'"></ion-icon>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

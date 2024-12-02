@@ -100,7 +100,7 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="condominiumFee" label="Valor do condomínio" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="condominiumFee" (input)="formatPrice($event)" label="Valor do condomínio" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
         </ion-card-content>
       </ion-card>
    
@@ -110,7 +110,7 @@
         </ion-card-header>
       
         <ion-card-content>
-          <ion-input (keypress)="numberOnlyValidation($event)" formControlName="iptu" label="Valor do IPTU" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+          <ion-input (keypress)="numberOnlyValidation($event)" (input)="formatPrice($event)" formControlName="iptu" label="Valor do IPTU" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
         </ion-card-content>
       </ion-card>
    
