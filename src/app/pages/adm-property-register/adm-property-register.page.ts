@@ -193,8 +193,6 @@ export class AdmPropertyRegisterPage implements OnInit {
   }
 
   onSubmit(formData: any) {
-    console.log(formData)
-
     const propertyAttributes = this.propertyDetails
       .filter((detail, index) => formData.propertyAttributes[index])
       .map(detail => detail.id);

@@ -47,7 +47,8 @@ export class AdmPropertyService {
   getPropertyDetails(propertyId: number): Observable<PropertyDetailsResponse> {
     let params = new HttpParams()
     params = params.set('propertyId', propertyId);
-    return this.http.get<PropertyDetailsResponse>(`${API_PROPERTY}`, { params })
+    const headers = { 'ngrok-skip-browser-warning': 'true' };
+    return this.http.get<PropertyDetailsResponse>(`${API_PROPERTY}`, { headers, params })
   }
 
   getImageById(imageId: number) { 
