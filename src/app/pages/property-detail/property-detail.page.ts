@@ -8,16 +8,17 @@ import {
   IonButton, IonCardContent, IonLabel, 
   IonCardTitle, IonCardHeader, IonCard,
   IonCheckbox, IonText, IonIcon,
+  IonModal
 } from '@ionic/angular/standalone';
-import { IonicSlides } from '@ionic/angular';
-import { PropertyDetailsResponse } from 'src/app/model/property-adm/property.model';
+import { IonicSlides, ModalController } from '@ionic/angular';
+import { PropertyDetailsResponse, PropertyImageResponse } from 'src/app/model/property-adm/property.model';
 import { ActivatedRoute } from '@angular/router';
 import { AdmPropertyService } from 'src/app/service/adm-property.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { checkmarkCircle, closeCircle } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { API_PROPERTY_IMAGES } from 'src/environments/environment';
+import { PropertyImageModalComponent } from 'src/app/modal/property-image-modal/property-image-modal.component';
 
 addIcons({
   'checkmark-circle': checkmarkCircle,
@@ -30,7 +31,7 @@ addIcons({
   styleUrls: ['./property-detail.page.scss'],
   standalone: true,
   providers: [
-    AdmPropertyService
+    AdmPropertyService, ModalController
   ],
   imports: [
     IonContent, IonHeader, IonTitle, 
@@ -39,7 +40,7 @@ addIcons({
     IonSelectOption, IonSelect, IonButton,
     IonCardContent, IonCardTitle, IonLabel, 
     IonCardHeader, IonCard, IonCheckbox,
-    IonText, IonIcon
+    IonText, IonIcon, IonModal
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -48,11 +49,14 @@ addIcons({
 export class PropertyDetailPage implements OnInit {
 
   swiperModules = [IonicSlides];
+  isFullscreen = false;
+  currentIndex = 0;
   property!: PropertyDetailsResponse;
 
   constructor(
     private route: ActivatedRoute,
-    private propertyService: AdmPropertyService
+    private propertyService: AdmPropertyService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -73,7 +77,17 @@ export class PropertyDetailPage implements OnInit {
     });
   }
 
-  getImageUrl(imageId: number): string {
-    return `${API_PROPERTY_IMAGES}/${imageId}`;
+  getImageBase64(image: PropertyImageResponse): string {
+    return `data:image/${image.imageType};base64,${image.imageData}`;
+  }
+
+  async openImageModal() {
+    const modal = await this.modalController.create({
+      component: PropertyImageModalComponent,
+      componentProps: {
+        property: this.property
+      }
+    });
+    await modal.present();
   }
 }

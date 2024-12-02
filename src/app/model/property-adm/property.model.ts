@@ -42,6 +42,7 @@ export interface PropertyDetailsResponse {
 
 export interface PropertyImageResponse {
   imageId: number;
+  imageData: string;
   imageType: string;
 }
 

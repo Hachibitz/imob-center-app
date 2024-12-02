@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PropertyDetailsResponse, RegisterPropertyRequest } from '../model/property-adm/property.model';
+import { PropertyDetailsResponse, PropertyImageResponse } from '../model/property-adm/property.model';
 import { Observable } from 'rxjs';
-import { API_PROPERTY, API_SEARCH_PROPERTIES } from 'src/environments/environment';
+import { API_PROPERTY, API_PROPERTY_IMAGES, API_SEARCH_PROPERTIES } from 'src/environments/environment';
 import { Page } from '../model/common/common.model';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class AdmPropertyService {
   constructor(private http: HttpClient) { }
 
   registerProperty(propertyData: FormData) {
-    return this.http.post<RegisterPropertyRequest>(`${API_PROPERTY}`, propertyData);
+    return this.http.post<PropertyDetailsResponse>(`${API_PROPERTY}`, propertyData);
   }
 
   searchProperties(
@@ -48,5 +48,9 @@ export class AdmPropertyService {
     let params = new HttpParams()
     params = params.set('propertyId', propertyId);
     return this.http.get<PropertyDetailsResponse>(`${API_PROPERTY}`, { params })
+  }
+
+  getImageById(imageId: number) { 
+    return this.http.get<PropertyImageResponse>(`${API_PROPERTY_IMAGES}/${imageId}`)
   }
 }

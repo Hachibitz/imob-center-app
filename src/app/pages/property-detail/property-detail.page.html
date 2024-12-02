@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content *ngIf="property" class="ion-padding">
-  <swiper-container  [slidesPerView]="1" [pagination]="true" [modules]="swiperModules">
-    <swiper-slide *ngFor="let image of property.images">
-      <img [src]="getImageUrl(image.imageId)" alt="Imagem do imóvel" class="property-image" />
+  <swiper-container [slidesPerView]="1" [pagination]="true" [modules]="swiperModules">
+    <swiper-slide *ngFor="let image of property.images; let i = index">
+      <img [src]="getImageBase64(image)" alt="Imagem do imóvel" class="property-image" (click)="openImageModal()" />
     </swiper-slide>
   </swiper-container>
 
